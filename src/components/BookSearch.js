@@ -18,7 +18,7 @@ function BookSearch() {
     setError(null);
     try {
       const res = await fetch(
-        `${API_URL}${encodeURIComponent(searchQuery)}&page=${pageNumber}`
+        `${API_URL}${encodeURIComponent(searchQuery)}&page=${pageNumber}&limit=50`
       );
       const data = await res.json();
       const results = data.docs;
@@ -29,7 +29,7 @@ function BookSearch() {
         append ? [...prevBooks, ...results] : results
       );
       // OpenLibrary returns "numFound" for total results
-      setHasMore(pageNumber * 100 < data.numFound);
+      setHasMore(pageNumber * 500 < data.numFound);
       setTotalResults(data.numFound);
     } catch (err) {
       setError("⚠️ Failed to fetch books.");
@@ -74,6 +74,7 @@ function BookSearch() {
             type="text"
             value={query}
             placeholder="Search for books by title..."
+            required
             onChange={(e) => setQuery(e.target.value)}
           />
           {query && (
@@ -146,7 +147,7 @@ function BookSearch() {
               rel="noopener noreferrer"
               className="detail-link"
             >
-              View on OpenLibrary
+              View more Details on OpenLibrary
             </a>
           </div>
         )}
