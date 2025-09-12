@@ -1,0 +1,138 @@
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5em;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: 2em;
+}
+
+input[type="text"] {
+  width: 300px;        /* shorter search bar */
+  max-width: 100%;     /* responsive on small screens */
+  padding: 0.7em 1em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* rounded edges */
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+}
+
+button {
+  padding: 0.7em 1.2em;
+  font-size: 1em;
+  background: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 25px; /* rounded button */
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #005fcc;
+  transform: translateY(-2px);
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5em;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  padding: 1em;
+  border-radius: 6px;
+  background: #fff;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.book-card img {
+  width: 140px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 0.7em;
+  border-radius: 4px;
+}
+
+.book-card h3 {
+  font-size: 1.1em;
+  margin: 0.5em 0;
+  color: #222;
+}
+
+.book-card p {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrapper input[type="text"] {
+  width: 300px;
+  max-width: 100%;
+  padding: 0.7em 2.5em 0.7em 1em; /* space on right for clear button */
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input-wrapper input[type="text"]:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 6px rgba(0, 119, 255, 0.3);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+}
+
+.clear-btn:hover {
+  color: #000;
+}
