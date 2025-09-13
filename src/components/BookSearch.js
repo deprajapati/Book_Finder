@@ -29,7 +29,7 @@ function BookSearch() {
         append ? [...prevBooks, ...results] : results
       );
       // OpenLibrary returns "numFound" for total results
-      setHasMore(pageNumber * 500 < data.numFound);
+      setHasMore(pageNumber * 50 < data.numFound);
       setTotalResults(data.numFound);
     } catch (err) {
       setError("⚠️ Failed to fetch books.");

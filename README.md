@@ -9,7 +9,7 @@ A simple React app for searching books using the Open Library API.
 
 ## How to Run
 
-- Open [this CodeSandbox](YOUR_LINK_HERE) or [StackBlitz](YOUR_LINK_HERE).
+- Open [this CodeSandbox](https://dd8r29-3000.csb.app/)
 - Type a book title and click "Search".
 
 ## Tech Stack
