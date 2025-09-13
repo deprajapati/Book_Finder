@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BookCard from "./BookCard";
 import Modal from "./Modal";
+import SuggestionBooks from "./SuggestionBooks";
 
 const API_URL = "https://openlibrary.org/search.json?title=";
 
@@ -13,6 +14,8 @@ function BookSearch() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const [totalResults, setTotalResults] = useState(0);
+  const [sortBy, setSortBy] = useState("relevance"); // "relevance", "latest", "oldest"
+
   const fetchBooks = async (searchQuery, pageNumber, append = false) => {
     setLoading(true);
     setError(null);
@@ -28,7 +31,6 @@ function BookSearch() {
       setBooks(prevBooks =>
         append ? [...prevBooks, ...results] : results
       );
-      // OpenLibrary returns "numFound" for total results
       setHasMore(pageNumber * 50 < data.numFound);
       setTotalResults(data.numFound);
     } catch (err) {
@@ -50,6 +52,7 @@ function BookSearch() {
     setError(null);
     setPage(1);
     setHasMore(false);
+    setTotalResults(0);
   };
 
   const handleBookClick = (book) => {
@@ -66,8 +69,19 @@ function BookSearch() {
     fetchBooks(query, nextPage, true);
   };
 
+  function getSortedBooks(books, sortBy) {
+    if (sortBy === "latest") {
+      return [...books].sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+    }
+    if (sortBy === "oldest") {
+      return [...books].sort((a, b) => (a.first_publish_year || 9999) - (b.first_publish_year || 9999));
+    }
+    return books;
+  }
+
   return (
     <div>
+      {/* === Search Bar === */}
       <form onSubmit={handleSearch} className="search-form">
         <div className="search-input-wrapper">
           <input
@@ -90,6 +104,23 @@ function BookSearch() {
         <button type="submit">Search</button>
       </form>
 
+      {/* === Sort Dropdown === */}
+      {books.length > 0 && (
+        <div style={{display: "flex", justifyContent: "flex-end", margin: "0.5em 0"}}>
+          <label htmlFor="sort-select" style={{marginRight: "0.5em"}}>Sort By:</label>
+          <select
+            id="sort-select"
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value)}
+            style={{padding: "0.3em"}}
+          >
+            <option value="relevance">Relevance</option>
+            <option value="latest">Latest Published</option>
+            <option value="oldest">Oldest Published</option>
+          </select>
+        </div>
+      )}
+
       {loading && <div className="spinner"></div>}
       {error && <p className="error">{error}</p>}
 
@@ -99,10 +130,11 @@ function BookSearch() {
         </div>
       )}
 
+      {/* === Search Results === */}
       {!loading && !error && books.length > 0 && (
         <>
           <div className="book-list">
-            {books.map((book) => (
+            {getSortedBooks(books, sortBy).map((book) => (
               <BookCard
                 key={book.key + (book.cover_i || "")}
                 book={book}
@@ -120,6 +152,10 @@ function BookSearch() {
         </>
       )}
 
+      {/* === Always show suggestions at bottom === */}
+      <SuggestionBooks onBookClick={handleBookClick} />
+
+      {/* === Modal === */}
       <Modal visible={!!selectedBook} onClose={handleCloseModal}>
         {selectedBook && (
           <div className="book-detail">

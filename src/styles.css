@@ -12,7 +12,7 @@ body {
 
 /* === App Container === */
 .app-container {
-  max-width: 900px;
+  max-width: 0 auto;
   margin: 0 auto;
   padding: 2em;
   background: linear-gradient(135deg, #fdfdfd, #f3f4f6);
@@ -340,4 +340,19 @@ button:focus {
     height: 28px;
     font-size: 0.9rem;
   }
+}
+
+/* === Suggestion Books === */
+.suggestion-section {
+  margin-top: 2.5em;
+  padding: 1em 0 2em 0;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+}
+.suggestion-title {
+  color: #2563EB;
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  text-align: center;
 }
